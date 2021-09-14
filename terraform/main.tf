@@ -5,7 +5,7 @@ module "vpc" {
   subnets    = var.subnets
 }
 
-module "cluster-1" {
+module "cluster_1" {
   source                   = "../modules/gke-cluster"
   project_id               = var.project_id
   name                     = var.cluster_name
@@ -31,6 +31,7 @@ module "cluster-1" {
 
 module "cluster-1-nodepool-1" {
   source       = "../modules/gke-nodepool"
+  depends_on   = [module.cluster_1] 
   project_id   = var.project_id
   cluster_name = var.cluster_name
   location     = var.location
