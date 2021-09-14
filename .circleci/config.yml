@@ -21,6 +21,7 @@ workflows:
           persist-workspace: true
           requires:
             - terraform/validate
+          var_file: ../variables/specs.tfvars
       - terraform/apply:
           attach-workspace: true
           context: terraform-gke
@@ -30,3 +31,4 @@ workflows:
               only: master
           requires:
             - terraform/plan
+          var_file: ../variables/specs.tfvars
