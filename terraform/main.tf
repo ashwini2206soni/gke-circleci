@@ -31,7 +31,7 @@ module "cluster_1" {
 
 module "cluster-1-nodepool-1" {
   source       = "../modules/gke-nodepool"
-  depends_on   = [module.cluster_1] 
+  depends_on   = [module.cluster_1]
   project_id   = var.project_id
   cluster_name = var.cluster_name
   location     = var.location
