@@ -6,25 +6,25 @@ workflows:
     jobs:
       - terraform/fmt:
           checkout: true
-          path: ./gke/terraform
+          path: ./terraform
           context: terraform
       - terraform/validate:
           checkout: true
           context: terraform
-          path: ./gke/terraform
+          path: ./terraform
           requires:
             - terraform/fmt
       - terraform/plan:
           checkout: true
           context: terraform
-          path: ./gke/terraform
+          path: ./terraform
           persist-workspace: true
           requires:
             - terraform/validate
       - terraform/apply:
           attach-workspace: true
           context: terraform
-          path: ./gke/terraform
+          path: ./terraform
           filters:
             branches:
               only: master
