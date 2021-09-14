@@ -1,0 +1,32 @@
+version: '2.1'
+orbs:
+  terraform: circleci/terraform@3.0.0
+workflows:
+  deploy_infrastructure:
+    jobs:
+      - terraform/fmt:
+          checkout: true
+          path: ./gke/terraform
+          context: terraform
+      - terraform/validate:
+          checkout: true
+          context: terraform
+          path: ./gke/terraform
+          requires:
+            - terraform/fmt
+      - terraform/plan:
+          checkout: true
+          context: terraform
+          path: ./gke/terraform
+          persist-workspace: true
+          requires:
+            - terraform/validate
+      - terraform/apply:
+          attach-workspace: true
+          context: terraform
+          path: ./gke/terraform
+          filters:
+            branches:
+              only: master
+          requires:
+            - terraform/plan
